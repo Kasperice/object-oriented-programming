@@ -4,11 +4,7 @@
 
 Ship::Ship() : id_(-1){};
 
-Ship::Ship(uint32_t capacity,
-           uint32_t maxCrew,
-           uint32_t speed,
-           const std::string& name,
-           uint32_t id)
+Ship::Ship(uint32_t capacity, uint32_t maxCrew, uint32_t speed, const std::string& name, uint32_t id)
     : capacity_(capacity), maxCrew_(maxCrew), crew_(0), speed_(speed), name_(name), id_(id){};
 
 Ship::Ship(uint32_t maxCrew, uint32_t speed, uint32_t id) : Ship(0, maxCrew, speed, "", id){};
@@ -20,6 +16,7 @@ void Ship::setName(const std::string& name) {
 Ship& Ship::operator-=(uint32_t crew) {
     if (crew_ < crew) {
         crew_ -= crew;
+        return *this;
     }
     std::cerr << "Too few sailors!";
     return *this;
@@ -28,6 +25,7 @@ Ship& Ship::operator-=(uint32_t crew) {
 Ship& Ship::operator+=(uint32_t crew) {
     if (crew_ + crew <= maxCrew_) {
         crew_ += crew;
+        return *this;
     }
     std::cerr << "Too many sailors!";
     return *this;
