@@ -1,7 +1,10 @@
 #include "ship.hpp"
 
+#include <algorithm>
 #include <iostream>
+#include <memory>
 #include <string>
+#include <vector>
 
 Ship::Ship() : id_(-1){};
 
@@ -66,4 +69,15 @@ Cargo* Ship::getCargo(size_t index) {
 
 std::vector<Cargo> Ship::getVectorCargo() const {
     return cargo_;
+}
+
+void Ship::load(const std::shared_ptr<Cargo>& cargo) {
+    cargo_.emplace_back(cargo);
+}
+
+void Ship::unload(Cargo* cargo) {
+    auto it = std::find_if(cargo_.begin(), cargo_.end(), [cargo](const auto& ptr) { return *ptr == *cargo; });
+    if (it != cargo_.end()) {
+        cargo_.erase(it);
+    };
 }

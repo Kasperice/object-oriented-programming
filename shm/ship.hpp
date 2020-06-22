@@ -25,6 +25,9 @@ public:
     Cargo* getCargo(size_t index);
     std::vector<Cargo> getVectorCargo() const;
 
+    void load(const std::shared_ptr<Cargo>& cargo);
+    void unload(Cargo* cargo);
+
 private:
     uint32_t id_;
     std::string name_;
