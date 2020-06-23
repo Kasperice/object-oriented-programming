@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Fruit::Fruit(uint32_t amount, const std::string& name, uint32_t basePrice, int32_t expiryDate)
+Fruit::Fruit(uint32_t amount, std::string name, uint32_t basePrice, uint32_t expiryDate)
     : Cargo(amount, name, basePrice), expiryDate_(expiryDate), currentExpiryDate_(expiryDate) {}
 Fruit::~Fruit() {}
 
@@ -18,7 +18,7 @@ uint32_t Fruit::getBasePrice() const {
     return basePrice_;
 }
 
-int32_t Fruit::getExpiryDate() const {
+uint32_t Fruit::getExpiryDate() const {
     return currentExpiryDate_;
 }
 
@@ -46,3 +46,8 @@ Fruit& Fruit::operator-=(uint32_t amount) {
     std::cout << "There is no so many fruits!";
     return *this;
 }
+
+// bool Fruit::operator==(Fruit& fruit) {
+//     return (name_ == fruit.getName()) && (amount_ == fruit.getAmount()) && (basePrice_ == fruit.getBasePrice()) &&
+//            (expiryDate_ == fruit.getExpiryDate());
+// }

@@ -38,3 +38,9 @@ Alcohol& Alcohol::operator-=(uint32_t amount) {
     std::cout << "There is no so many alcohol!";
     return *this;
 }
+
+// bool Alcohol::operator==(Alcohol& alcohol) {
+//     return (name_ == alcohol.getName()) && (amount_ == alcohol.getAmount()) && (basePrice_ == alcohol.getBasePrice())
+//     &&
+//            (power_ == alcohol.getPower());
+// }

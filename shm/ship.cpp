@@ -17,8 +17,8 @@ void Ship::setName(const std::string& name) {
     name_ = name;
 }
 
-void Ship::addToCargo(std::shared_ptr<Cargo> cargo) {
-    cargo_.push_back(cargo);
+void Ship::addToCargo(Cargo* cargo) {
+    cargo_.emplace_back(cargo);
 }
 
 Ship& Ship::operator-=(uint32_t crew) {
@@ -63,9 +63,9 @@ uint32_t Ship::getCapacity() const {
     return capacity_;
 }
 
-std::shared_ptr<Cargo> Ship::getCargo(size_t index) {
-    return cargo_[index];
-}
+// Cargo* Ship::getCargo(size_t index) {
+//     return cargo_[index];
+// }
 
 std::vector<std::shared_ptr<Cargo>> Ship::getVectorCargo() const {
     return cargo_;
@@ -74,13 +74,13 @@ std::vector<std::shared_ptr<Cargo>> Ship::getVectorCargo() const {
 Cargo* Ship::findMatchCargo(Cargo* cargo) {
     for (auto el : cargo_) {
         if (el->getName() == "Fruit") {
-            if (el->getName() == cargo->getName() && el->getBasePrice() == cargo->getBasePrice() &&
-                el->getExpiryDate() == cargo->getExpiryDate()) {
+            if (el->getName() == cargo->getName() && el->getBasePrice() == cargo->getBasePrice() /*&&
+                el->getExpiryDate() == cargo->getExpiryDate()*/) {
                 return el.get();
             }
         } else if (el->getName() == "Alcohol") {
-            if (el->getName() == cargo->getName() && el->getBasePrice() == cargo->getBasePrice() &&
-                el->getPower() == cargo->getPower()) {
+            if (el->getName() == cargo->getName() && el->getBasePrice() == cargo->getBasePrice() /*&&
+                el->getPower() == cargo->getPower()*/) {
                 return el.get();
             }
         } else {
@@ -101,7 +101,7 @@ void Ship::load(std::shared_ptr<Cargo> cargo) {
         *match_cargo += cargo->getAmount();
         return;
     }
-    cargo_.emplace_back(std::move(cargo));
+    cargo_.push_back(std::move(cargo));
 }
 
 void Ship::unload(Cargo* cargo) {

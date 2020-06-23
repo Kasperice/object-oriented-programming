@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-enum class Rarity { common = 1, rare = 3, epic = 7, legendary = 15 };
-
-Item::Item(uint32_t amount, const std::string& name, uint32_t basePrice, Rarity rarity)
+Item::Item(uint32_t amount, std::string name, uint32_t basePrice, Rarity rarity)
     : Cargo(amount, name, basePrice), rarity_(rarity) {}
+
+Item::~Item() {}
 
 std::string Item::getName() const {
     return "Item " + name_;
@@ -40,3 +40,8 @@ Item& Item::operator-=(uint32_t amount) {
     std::cout << "There is no so many items!";
     return *this;
 }
+
+// bool Item::operator==(Item& item) {
+//     return (name_ == item.getName()) && (amount_ == item.getAmount()) && (basePrice_ == item.getBasePrice()) &&
+//            (rarity_ == item.getRarity());
+// }

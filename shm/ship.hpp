@@ -12,7 +12,7 @@ public:
     Ship(uint32_t maxCrew, uint32_t speed, uint32_t id);
 
     void setName(const std::string& name);
-    void addToCargo(std::shared_ptr<Cargo> cargo);
+    void addToCargo(Cargo* cargo);
 
     Ship& operator-=(uint32_t crew);
     Ship& operator+=(uint32_t crew);
@@ -23,7 +23,7 @@ public:
     uint32_t getCrew() const;
     uint32_t getMaxCrew() const;
     uint32_t getCapacity() const;
-    std::shared_ptr<Cargo> getCargo(size_t index);
+    // std::shared_ptr<Cargo> getCargo(size_t index);
     std::vector<std::shared_ptr<Cargo>> getVectorCargo() const;
 
     void load(std::shared_ptr<Cargo> cargo);
