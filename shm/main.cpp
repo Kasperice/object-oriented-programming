@@ -33,7 +33,6 @@ int main() {
     std::cout << blackPearl.getCrew() << "\n";
 
     Fruit Banana(6, "Banana", 5, 10);
-    std::shared_ptr<Fruit> banana = std::make_shared<Fruit>(Banana);
     Item Chocolate(5, "Milka", 5, Rarity::epic);
     Item IceCream(6, "scholler", 6, Rarity::common);
 
