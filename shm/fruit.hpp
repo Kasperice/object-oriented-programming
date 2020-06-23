@@ -13,6 +13,7 @@ public:
     uint32_t getAmount() const override;
     uint32_t getBasePrice() const override;
     double getPrice() const override;
+    int32_t getExpiryDate() const override;
 
     Fruit& operator--();
     Fruit& operator+=(uint32_t amount) override;

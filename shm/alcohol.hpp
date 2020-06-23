@@ -13,7 +13,7 @@ public:
     uint32_t getAmount() const override;
     uint32_t getBasePrice() const override;
     double getPrice() const override;
-    int32_t getPower() const;
+    int32_t getPower() const override;
 
     Alcohol& operator+=(uint32_t amount) override;
     Alcohol& operator-=(uint32_t amount) override;

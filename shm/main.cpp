@@ -1,13 +1,16 @@
-#include "cargo.hpp"
-#include "coordinates.hpp"
-#include "island.hpp"
-#include "map.hpp"
-#include "player.hpp"
-#include "ship.hpp"
-
 #include <iostream>
 #include <memory>
 #include <string>
+
+#include "alcohol.hpp"
+#include "cargo.hpp"
+#include "coordinates.hpp"
+#include "fruit.hpp"
+#include "island.hpp"
+#include "item.hpp"
+#include "map.hpp"
+#include "player.hpp"
+#include "ship.hpp"
 
 int main() {
     Ship blackPearl(200, 50, 180, "black pearl", 1);
@@ -29,26 +32,30 @@ int main() {
     blackPearl -= 8;
     std::cout << blackPearl.getCrew() << "\n";
 
-    Cargo Chocolate(5, "milka", 3);
-    Cargo IceCream(6, "scholler", 8);
+    Fruit Banana(6, "Banana", 5, 10);
+    // Item Chocolate(5, "milka", 6, Rarity::epic);
+    // Item IceCream(6, "scholler", 6, Rarity::common);
 
-    std::cout << Chocolate.getName() << "\n";
-    std::cout << Chocolate.getAmount() << "\n";
-    std::cout << Chocolate.getBasePrice() << "\n";
-    Chocolate += 7;
-    std::cout << Chocolate.getAmount() << "\n";
-    IceCream -= 4;
-    std::cout << IceCream.getAmount() << "\n";
+    std::cout << Banana.getName() << "\n";
+    std::cout << Banana.getAmount() << "\n";
+    std::cout << Banana.getBasePrice() << "\n";
+    Banana += 7;
+    std::cout << Banana.getAmount() << "\n";
+    --Banana;
+    --Banana;
+    std::cout << Banana.getPrice() << "\n";
+    // IceCream -= 4;
+    // std::cout << IceCream.getAmount() << "\n";
 
-    blackPearl.addToCargo(Chocolate);
-    blackPearl.addToCargo(IceCream);
-    Cargo* ptr_ = blackPearl.getCargo(1);
-    std::cout << ptr_->getName() << "\n";
-    std::cout << blackPearl.getCargo(0)->getName() << "\n";
+    // blackPearl.addToCargo(Chocolate);
+    // blackPearl.addToCargo(IceCream);
+    // Cargo* ptr_ = blackPearl.getCargo(1);
+    // std::cout << ptr_->getName() << "\n";
+    // std::cout << blackPearl.getCargo(0)->getName() << "\n";
 
-    for (const auto& element : blackPearl.getVectorCargo()) {
-        std::cout << element.getName() << "\n";
-    }
+    // for (const auto& element : blackPearl.getVectorCargo()) {
+    //     std::cout << element.getName() << "\n";
+    // }
 
     Map mainMap;
 
@@ -58,11 +65,11 @@ int main() {
         std::cout << "Island found!\n";
     }
 
-    std::cout << pawellos.getAvailableSpace() << "\n";
+    // std::cout << pawellos.getAvailableSpace() << "\n";
 
-    std::cout << pawellos.getShip()->getName() << "\n";
-    pawellos.getShip()->addToCargo(Chocolate);
-    std::cout << pawellos.getShip()->getCargo(0) << "\n";
-    std::cout << pawellos.getCargo(0)->getName() << "\n";
+    // std::cout << pawellos.getShip()->getName() << "\n";
+    // pawellos.getShip()->addToCargo(Chocolate);
+    // std::cout << pawellos.getShip()->getCargo(0) << "\n";
+    // std::cout << pawellos.getCargo(0)->getName() << "\n";
     return 0;
 }

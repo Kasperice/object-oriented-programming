@@ -14,12 +14,12 @@ public:
     uint32_t getAvailableSpace() const;
 
     uint32_t getSpeed() const;
-    Cargo* getCargo(uint32_t index) const;
+    std::shared_ptr<Cargo> getCargo(uint32_t index) const;
 
 private:
     std::unique_ptr<Ship> ship_;
     uint32_t availableSpace_;
     uint32_t money_;
 
-    uint32_t CountAvailableSpace() const;
+    uint32_t countAvailableSpace() const;
 };

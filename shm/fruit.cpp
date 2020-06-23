@@ -7,7 +7,7 @@ Fruit::Fruit(uint32_t amount, const std::string& name, uint32_t basePrice, int32
 Fruit::~Fruit() {}
 
 std::string Fruit::getName() const {
-    return name_;
+    return "Fruit " + name_;
 }
 
 uint32_t Fruit::getAmount() const {
@@ -18,15 +18,18 @@ uint32_t Fruit::getBasePrice() const {
     return basePrice_;
 }
 
+int32_t Fruit::getExpiryDate() const {
+    return currentExpiryDate_;
+}
+
 double Fruit::getPrice() const {
     return basePrice_ * currentExpiryDate_ / expiryDate_;
 }
 
 Fruit& Fruit::operator--() {
-    if (currentExpiryDate_ == 0) {
-        return *this;
+    if (currentExpiryDate_ > 0) {
+        --currentExpiryDate_;
     }
-    --currentExpiryDate_;
     return *this;
 }
 

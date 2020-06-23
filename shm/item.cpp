@@ -8,7 +8,7 @@ Item::Item(uint32_t amount, const std::string& name, uint32_t basePrice, Rarity 
     : Cargo(amount, name, basePrice), rarity_(rarity) {}
 
 std::string Item::getName() const {
-    return name_;
+    return "Item " + name_;
 }
 
 uint32_t Item::getAmount() const {

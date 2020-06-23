@@ -11,6 +11,9 @@ public:
     virtual uint32_t getBasePrice() const = 0;
     virtual std::string getName() const = 0;
     virtual double getPrice() const = 0;
+    virtual int32_t getExpiryDate() const = 0;
+    virtual int32_t getPower() const = 0;
+    // virtual Rarity getRarity() const = 0;
 
     virtual Cargo& operator+=(uint32_t amount) = 0;
     virtual Cargo& operator-=(uint32_t amount) = 0;

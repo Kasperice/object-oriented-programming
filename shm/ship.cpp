@@ -17,7 +17,7 @@ void Ship::setName(const std::string& name) {
     name_ = name;
 }
 
-void Ship::addToCargo(Cargo cargo) {
+void Ship::addToCargo(std::shared_ptr<Cargo> cargo) {
     cargo_.push_back(cargo);
 }
 
@@ -63,21 +63,47 @@ uint32_t Ship::getCapacity() const {
     return capacity_;
 }
 
-Cargo* Ship::getCargo(size_t index) {
-    return &cargo_[index];
+std::shared_ptr<Cargo> Ship::getCargo(size_t index) {
+    return cargo_[index];
 }
 
-std::vector<Cargo> Ship::getVectorCargo() const {
+std::vector<std::shared_ptr<Cargo>> Ship::getVectorCargo() const {
     return cargo_;
 }
 
-void Ship::load(const std::shared_ptr<Cargo>& cargo) {
-    cargo_.emplace_back(cargo);
+Cargo* Ship::findMatchCargo(Cargo* cargo) {
+    for (auto el : cargo_) {
+        if (el->getName() == "Fruit") {
+            if (el->getName() == cargo->getName() && el->getBasePrice() == cargo->getBasePrice() &&
+                el->getExpiryDate() == cargo->getExpiryDate()) {
+                return el.get();
+            }
+        } else if (el->getName() == "Alcohol") {
+            if (el->getName() == cargo->getName() && el->getBasePrice() == cargo->getBasePrice() &&
+                el->getPower() == cargo->getPower()) {
+                return el.get();
+            }
+        } else {
+            if (el->getName() == cargo->getName() && el->getBasePrice() == cargo->getBasePrice() /*&&
+                el->getRarity() == cargo->getRarity()*/) {
+                return el.get();
+            }
+        }
+    }
+}
+
+void Ship::removeFromStorage(Cargo* cargo) {
+    cargo_.erase(std::find_if(cargo_.begin(), cargo_.end(), [cargo](const auto& el) { return *el == *cargo; }));
+}
+
+void Ship::load(std::shared_ptr<Cargo> cargo) {
+    if (auto match_cargo = findMatchCargo(cargo.get())) {
+        *match_cargo += cargo->getAmount();
+        return;
+    }
+    cargo_.emplace_back(std::move(cargo));
 }
 
 void Ship::unload(Cargo* cargo) {
-    auto it = std::find_if(cargo_.begin(), cargo_.end(), [cargo](const auto& ptr) { return *ptr == *cargo; });
-    if (it != cargo_.end()) {
-        cargo_.erase(it);
-    };
+    removeFromStorage(cargo);
 }

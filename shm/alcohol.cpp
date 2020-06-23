@@ -6,7 +6,7 @@ Alcohol::Alcohol(uint32_t amount, const std::string& name, uint32_t basePrice, i
     : Cargo(amount, name, basePrice), power_(power) {}
 
 std::string Alcohol::getName() const {
-    return name_;
+    return "Alcohol " + name_;
 }
 
 uint32_t Alcohol::getAmount() const {
