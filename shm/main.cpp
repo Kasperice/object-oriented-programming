@@ -32,25 +32,25 @@ int main() {
     blackPearl -= 8;
     std::cout << blackPearl.getCrew() << "\n";
 
-    Fruit Banana(6, "Banana", 5, 10);
+    Cargo* Banana = new Fruit{6, "Banana", 5, 10};
     Item Chocolate(5, "Milka", 5, Rarity::epic);
-    Item IceCream(6, "scholler", 6, Rarity::common);
-
-    std::cout << Banana.getName() << "\n";
-    std::cout << Banana.getAmount() << "\n";
-    std::cout << Banana.getBasePrice() << "\n";
+    // Item IceCream(6, "scholler", 6, Rarity::common);
+    std::shared_ptr<Cargo> ptrCargo = std::make_shared<Cargo>(Banana);
+    std::cout << ptrCargo->getName() << "\n";
+    std::cout << ptrCargo->getAmount() << "\n";
+    std::cout << ptrCargo->getBasePrice() << "\n";
     Banana += 7;
-    std::cout << Banana.getAmount() << "\n";
+    std::cout << ptrCargo->getAmount() << "\n";
     --Banana;
     --Banana;
-    std::cout << Banana.getPrice() << "\n";
-    IceCream -= 4;
-    std::cout << IceCream.getAmount() << "\n";
+    std::cout << ptrCargo->getPrice() << "\n";
+    // IceCream -= 4;
+    // std::cout << IceCream.getAmount() << "\n";
 
-    blackPearl.load(Banana);
+    blackPearl.load(ptrCargo);
     // blackPearl.load(IceCream);
     // Cargo* ptr_ = blackPearl.getCargo(1);
-    std::cout << ptr_->getName() << "\n";
+    // std::cout << ptr_->getName() << "\n";
     // std::cout << blackPearl.getCargo(0)->getName() << "\n";
 
     // for (const auto& element : blackPearl.getVectorCargo()) {

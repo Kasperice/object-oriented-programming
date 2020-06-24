@@ -63,9 +63,12 @@ uint32_t Ship::getCapacity() const {
     return capacity_;
 }
 
-// Cargo* Ship::getCargo(size_t index) {
-//     return cargo_[index];
-// }
+Cargo* Ship::getCargo(size_t index) const {
+    if (cargo_.size() > index) {
+        return cargo_[index].get();
+    }
+    return nullptr;
+}
 
 std::vector<std::shared_ptr<Cargo>> Ship::getVectorCargo() const {
     return cargo_;
@@ -103,6 +106,10 @@ void Ship::load(std::shared_ptr<Cargo> cargo) {
     }
     cargo_.push_back(std::move(cargo));
 }
+
+// void Ship::load(std::shared_ptr<Cargo> cargo) {
+//     cargo_.emplace_back(cargo);
+// }
 
 void Ship::unload(Cargo* cargo) {
     removeFromStorage(cargo);

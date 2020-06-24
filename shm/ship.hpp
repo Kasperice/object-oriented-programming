@@ -23,7 +23,7 @@ public:
     uint32_t getCrew() const;
     uint32_t getMaxCrew() const;
     uint32_t getCapacity() const;
-    // std::shared_ptr<Cargo> getCargo(size_t index);
+    Cargo* getCargo(size_t index) const;
     std::vector<std::shared_ptr<Cargo>> getVectorCargo() const;
 
     void load(std::shared_ptr<Cargo> cargo);

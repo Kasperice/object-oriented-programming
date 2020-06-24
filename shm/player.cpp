@@ -27,12 +27,12 @@ uint32_t Player::getSpeed() const {
     return ship_->getSpeed();
 }
 
-// Cargo* Player::getCargo(uint32_t index) const {
-//     // if (ship_) {
-//     //     return ship_->getCargo(index);
-//     // }
-//     // return nullptr;
-// }
+Cargo* Player::getCargo(uint32_t index) const {
+    if (ship_) {
+        return ship_->getCargo(index);
+    }
+    return nullptr;
+}
 
 void Player::purchaseCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price) {
     availableSpace_ -= amount;

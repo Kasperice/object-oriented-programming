@@ -14,7 +14,7 @@ public:
     uint32_t getAvailableSpace() const;
 
     uint32_t getSpeed() const;
-    // Cargo* getCargo(uint32_t index) const;
+    Cargo* getCargo(uint32_t index) const;
 
     void purchaseCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price);
     void printCargo() const;
