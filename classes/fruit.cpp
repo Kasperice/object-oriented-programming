@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+constexpr uint32_t NOFLOAT_ROUNDING = 1;
+
 Fruit::Fruit(uint32_t amount, const std::string& name, uint32_t basePrice, int32_t expiryDate)
 	: Cargo(amount, name, basePrice), expiryDate_(expiryDate), currentExpiryDate_(expiryDate) {}
 Fruit::~Fruit() {}
@@ -22,13 +24,19 @@ int32_t Fruit::getExpiryDate() const {
 	return currentExpiryDate_;
 }
 
-double getPrice() const {
-	return basePrice_ * currentExpiryDate_ / expiryDate_;
+double Fruit::getPrice() const {
+	if(currentExpiryDate_ == 0 || expiryDate_ == 0) {
+        return 0;
+    }
+	return basePrice_ * currentExpiryDate_ / expiryDate_ + NOFLOAT_ROUNDING;
 }
 
 Fruit& Fruit::operator-- () {
 	if (currentExpiryDate_ > 0) {
 		--currentExpiryDate_;
+	}
+	else {
+		std::cout << "Fruits already rotten!";
 	}
 	return *this;
 }
