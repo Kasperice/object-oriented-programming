@@ -40,7 +40,7 @@ Cargo& Alcohol::operator-=(uint32_t amount) {
 	return *this;
 }
 
-bool Alcohol::operator==(Alcohol& alcohol) {
+bool Alcohol::operator==(Cargo& cargo) {
 	auto alcohol = dynamic_cast <const Alcohol&>(cargo);
 	if (typeid(cargo) != typeid(*this)) {
 		return false;
