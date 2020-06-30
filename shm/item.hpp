@@ -3,6 +3,7 @@
 #include <string>
 
 #include "cargo.hpp"
+#include "time.hpp"
 
 enum class Rarity { common = 1, rare = 3, epic = 6, legendary = 10 };
 
@@ -19,6 +20,7 @@ public:
     Cargo& operator+=(uint32_t amount) override;
     Cargo& operator-=(uint32_t amount) override;
     bool operator==(const Cargo& cargo) const override;
+    void nextDay() override {}
 
 private:
     const Rarity rarity_;

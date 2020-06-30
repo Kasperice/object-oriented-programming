@@ -20,8 +20,8 @@ public:
     void sellCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price);
     void printCargo() const;
 
-    void purchaseCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price);
-    void printCargo() const;
+    // void purchaseCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price);
+    // void printCargo() const;
 
 private:
     std::shared_ptr<Ship> ship_;

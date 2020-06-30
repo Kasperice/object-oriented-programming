@@ -60,3 +60,8 @@ bool Fruit::operator==(const Cargo& cargo) const {
     return (fruit.getBasePrice() == basePrice_) && (fruit.getName() == name_) &&
            (fruit.getExpiryDate() == currentExpiryDate_);
 }
+
+void Fruit::nextDay() {
+    operator--();
+    std::cout << "Next day in: " << getName() << "\n";
+}

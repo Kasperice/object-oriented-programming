@@ -6,6 +6,8 @@
 Alcohol::Alcohol(uint32_t amount, const std::string& name, uint32_t basePrice, Time* time, int32_t power)
     : Cargo(amount, name, basePrice, time), power_(power) {}
 
+Alcohol::~Alcohol() {}
+
 std::string Alcohol::getName() const {
     return "Alcohol " + name_;
 }
@@ -47,4 +49,9 @@ bool Alcohol::operator==(const Cargo& cargo) const {
     }
     return (name_ == alcohol.getName()) && (amount_ == alcohol.getAmount()) && (basePrice_ == alcohol.getBasePrice()) &&
            (power_ == alcohol.getPower());
+}
+
+void Alcohol::nextDay() {
+    power_--;
+    std::cout << "Next day in: " << getName() << "\n";
 }

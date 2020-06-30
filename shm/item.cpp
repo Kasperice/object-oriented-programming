@@ -30,12 +30,12 @@ Rarity Item::getRarity() const {
     return rarity_;
 }
 
-Item& Item::operator+=(uint32_t amount) {
+Cargo& Item::operator+=(uint32_t amount) {
     amount_ += amount;
     return *this;
 }
 
-Item& Item::operator-=(uint32_t amount) {
+Cargo& Item::operator-=(uint32_t amount) {
     if (amount <= amount_) {
         amount_ -= amount;
         return *this;

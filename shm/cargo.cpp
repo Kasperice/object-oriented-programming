@@ -15,6 +15,6 @@ Cargo::~Cargo() {
 //     return (name_ == cargo.name_) && (amount_ == cargo.amount_) && (basePrice_ == cargo.basePrice_);
 // }
 
-void Cargo::nextDay() {
-    std::cout << "Next day in: " << getName() << "\n";
-}
+// void Cargo::nextDay() {
+//     std::cout << "Next day in: " << getName() << "\n";
+// }

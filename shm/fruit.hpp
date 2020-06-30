@@ -19,6 +19,7 @@ public:
     Cargo& operator+=(uint32_t amount) override;
     Cargo& operator-=(uint32_t amount) override;
     bool operator==(const Cargo& cargo) const override;
+    void nextDay() override;
 
 private:
     const int32_t expiryDate_{10};

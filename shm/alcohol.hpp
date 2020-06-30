@@ -7,7 +7,7 @@
 class Alcohol : public Cargo {
 public:
     Alcohol(uint32_t amount, const std::string& name, uint32_t basePrice, Time* time, int32_t power);
-    ~Alcohol() override = default;
+    ~Alcohol() override;
 
     std::string getName() const override;
     uint32_t getAmount() const override;
@@ -18,6 +18,7 @@ public:
     Cargo& operator+=(uint32_t amount) override;
     Cargo& operator-=(uint32_t amount) override;
     bool operator==(const Cargo& cargo) const override;
+    void nextDay() override;
 
 private:
     const int32_t maxAlcohol_{96};

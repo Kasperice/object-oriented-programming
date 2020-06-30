@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "item.hpp"
+// #include "item.hpp"
 #include "subjectTime.hpp"
 #include "time.hpp"
 
@@ -20,7 +20,7 @@ public:
     virtual bool operator==(const Cargo& cargo) const = 0;
 
     // override from ObserverTime
-    void nextDay() override;
+    virtual void nextDay() = 0;
 
 protected:
     uint32_t amount_;
