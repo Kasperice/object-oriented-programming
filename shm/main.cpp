@@ -1,13 +1,18 @@
+#include <iostream>
+#include <memory>
+#include <string>
+
+#include "alcohol.hpp"
 #include "cargo.hpp"
-//#include "fruit.hpp"
+#include "coordinates.hpp"
+#include "fruit.hpp"
+#include "island.hpp"
+#include "item.hpp"
+#include "map.hpp"
 #include "player.hpp"
 #include "ship.hpp"
 #include "store.hpp"
 #include "time.hpp"
-
-#include <iostream>
-#include <memory>
-#include <string>
 
 int main() {
     // std::cout << pawellos.getMoney() << "\n";
@@ -34,15 +39,34 @@ int main() {
 
     Player pawellos(ptr, 300, 70);
 
-    Cargo bananas(10, "Bananas", 100, &gameTime);
-    Cargo oranges(50, "Oranges", 10, &gameTime);
-    Cargo apples(200, "Apples", 50, &gameTime);
+    Cargo* bananas = new Fruit{10, "Bananas", 100, &gameTime, 10};
+    Cargo* oranges = new Fruit{50, "Oranges", 10, &gameTime, 10};
+    Cargo* apples = new Fruit{200, "Apples", 50, &gameTime, 10};
+    // Cargo bananas(10, "Bananas", 100, &gameTime);
+    // Cargo oranges(50, "Oranges", 10, &gameTime);
+    // Cargo apples(200, "Apples", 50, &gameTime);
 
-    Cargo Chocolate(5, "milka", 3, &gameTime);
-    Cargo IceCream(6, "scholler", 8, &gameTime);
+    // Cargo Chocolate(5, "milka", 3, &gameTime);
+    Cargo* Chocolate = new Item{5, "milka", 3, &gameTime, Rarity::legendary};
+    // Cargo IceCream(6, "scholler", 8, &gameTime);
+    Cargo* IceCream = new Item{200, "scholler", 50, &gameTime, Rarity::epic};
 
     std::shared_ptr<Cargo> ptrCargo1 = std::make_shared<Cargo>(Chocolate);
     std::shared_ptr<Cargo> ptrCargo2 = std::make_shared<Cargo>(IceCream);
+    /*Cargo* Banana = new Fruit{6, "Banana", 5, 10};
+    Item Chocolate(5, "Milka", 5, Rarity::epic);
+    // Item IceCream(6, "scholler", 6, Rarity::common);
+    std::shared_ptr<Cargo> ptrCargo = std::make_shared<Cargo>(Banana);
+    std::cout << ptrCargo->getName() << "\n";
+    std::cout << ptrCargo->getAmount() << "\n";
+    std::cout << ptrCargo->getBasePrice() << "\n";
+    Banana += 7;
+    std::cout << ptrCargo->getAmount() << "\n";
+    --Banana;
+    --Banana;
+    std::cout << ptrCargo->getPrice() << "\n";
+
+    blackPearl.load(ptrCargo);*/
 
     pawellos.getShip()->load(ptrCargo1);
     pawellos.getShip()->load(ptrCargo2);

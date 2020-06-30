@@ -1,10 +1,10 @@
 #include "map.hpp"
+
 #include <map>
 #include <random>
 #include <string>
 
 Map::Map() {
-
     allIslands.reserve(NUM_OF_ISLANDS);
 
     std::map<std::string, int> repsChecker;

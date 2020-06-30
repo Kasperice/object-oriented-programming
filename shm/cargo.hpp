@@ -1,28 +1,30 @@
 #pragma once
 
 #include <string>
+#include "item.hpp"
 #include "subjectTime.hpp"
 #include "time.hpp"
 
 class Cargo : public ObserverTime {
 public:
     Cargo(uint32_t amount, std::string name, uint32_t basePrice, Time* time);
-    ~Cargo();
+    virtual ~Cargo();
 
-    uint32_t getAmount() const;
-    uint32_t getBasePrice() const;
-    std::string getName() const;
+    virtual uint32_t getAmount() const = 0;
+    virtual uint32_t getBasePrice() const = 0;
+    virtual std::string getName() const = 0;
+    virtual double getPrice() const = 0;
 
-    Cargo& operator+=(uint32_t amount);
-    Cargo& operator-=(uint32_t amount);
-    bool operator==(Cargo& cargo);
+    virtual Cargo& operator+=(uint32_t amount) = 0;
+    virtual Cargo& operator-=(uint32_t amount) = 0;
+    virtual bool operator==(const Cargo& cargo) const = 0;
 
     // override from ObserverTime
     void nextDay() override;
 
-private:
-    uint32_t amount_ = {};
-    std::string name_ = {};
-    uint32_t basePrice_ = {};
+protected:
+    uint32_t amount_;
+    std::string name_;
+    uint32_t basePrice_;
     Time* time_;
 };

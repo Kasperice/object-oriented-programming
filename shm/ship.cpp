@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
 
 Ship::Ship() : id_(-1) {}
 
@@ -79,9 +80,9 @@ void Ship::load(std::shared_ptr<Cargo> cargo) {
             *element += cargo.get()->getAmount();
             return;
         }
+        cargo_.emplace_back(cargo);
+        time_->registerObserver(cargo_.back().get());
     }
-    cargo_.emplace_back(cargo);
-    time_->registerObserver(cargo_.back().get());
 }
 
 void Ship::unload(std::shared_ptr<Cargo> cargo, uint32_t amount) {
