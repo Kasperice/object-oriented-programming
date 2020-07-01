@@ -52,7 +52,7 @@ int main() {
     // Cargo* IceCream = new Item{200, "scholler", 50, &gameTime, Rarity::epic};
 
     std::shared_ptr<Cargo> ptrCargo1 = std::make_shared<Item>(5, "milka", 3, &gameTime, Rarity::legendary);
-    std::shared_ptr<Cargo> ptrCargo2 = std::make_shared<Item>(200, "scholler", 50, &gameTime, Rarity::epic);
+    std::shared_ptr<Cargo> ptrCargo2 = std::make_shared<Item>(5, "scholler", 50, &gameTime, Rarity::epic);
     /*Cargo* Banana = new Fruit{6, "Banana", 5, 10};
     Item Chocolate(5, "Milka", 5, Rarity::epic);
     // Item IceCream(6, "scholler", 6, Rarity::common);
@@ -68,8 +68,8 @@ int main() {
 
     blackPearl.load(ptrCargo);*/
 
-    pawellos.getShip()->load(ptrCargo1);
-    pawellos.getShip()->load(ptrCargo2);
+    // pawellos.getShip()->load(ptrCargo1);
+    // pawellos.getShip()->load(ptrCargo2);
     std::cout << "---------Before buy------ \n\n";
     pawellos.getShip()->printCargo();
     std::cout << "Money of player: " << pawellos.getMoney() << '\n';
@@ -79,11 +79,11 @@ int main() {
     biedronka.printCargo();
     std::cout << "---------After buy------ \n\n";
     // Player* ptrPlayer = &pawellos;
-    biedronka.buy(biedronka.getCargo(0), 2, &pawellos);
-    biedronka.buy(biedronka.getCargo(2), 8, &pawellos);
-    biedronka.buy(biedronka.getCargo(1), 19, &pawellos);
-    biedronka.buy(biedronka.getCargo(1), 190, &pawellos);
-    biedronka.buy(biedronka.getCargo(3), 4, &pawellos);
+    biedronka.buy(biedronka.getCargo(0), 1, &pawellos);
+    biedronka.buy(biedronka.getCargo(2), 1, &pawellos);
+    biedronka.buy(biedronka.getCargo(1), 1, &pawellos);
+    biedronka.buy(biedronka.getCargo(1), 1, &pawellos);
+    biedronka.buy(biedronka.getCargo(3), 1, &pawellos);
     pawellos.getShip()->printCargo();
     std::cout << "Money of player: " << pawellos.getMoney() << '\n';
     std::cout << "Available place on ship: " << pawellos.getAvailableSpace() << '\n';
@@ -94,7 +94,7 @@ int main() {
     std::cout << "Money of player: " << pawellos.getMoney() << '\n';
     std::cout << "Available place on ship: " << pawellos.getAvailableSpace() << '\n';
     biedronka.printCargo();
-    biedronka.sell(pawellos.getCargo(1), 3, &pawellos);
+    // biedronka.sell(pawellos.getCargo(1), 3, &pawellos);
     // biedronka.sell(pawellos.getCargo(2), 2, &pawellos);
     std::cout << "---------After sell------ \n\n";
     pawellos.getShip()->printCargo();

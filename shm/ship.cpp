@@ -75,21 +75,27 @@ std::vector<std::shared_ptr<Cargo>> Ship::getVectorCargo() const {
 }
 
 void Ship::load(std::shared_ptr<Cargo> cargo) {
+    if (cargo_.empty()) {
+        cargo_.emplace_back(cargo);
+        time_->registerObserver(cargo_.back().get());
+        return;
+    }
     for (auto& element : getVectorCargo()) {
         if (cargo.get()->getName() == element->getName()) {
             *element += cargo.get()->getAmount();
             return;
+        } else {
+            cargo_.emplace_back(cargo);
+            time_->registerObserver(cargo_.back().get());
         }
-        cargo_.emplace_back(cargo);
-        time_->registerObserver(cargo_.back().get());
-    }
+        }
 }
 
-void Ship::unload(std::shared_ptr<Cargo> cargo, uint32_t amount) {
+void Ship::unload(Cargo* cargo, uint32_t amount) {
     auto it = std::find_if(cargo_.begin(), cargo_.end(),
                            [cargo](const auto& ptr) { return ptr->getName() == cargo->getName(); });
     if (it != cargo_.end()) {
-        if (amount == it->get()->getAmount()) {
+        if (amount == (*it)->getAmount()) {
             cargo_.erase(it);
         } else {
             *cargo -= amount;

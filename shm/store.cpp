@@ -21,7 +21,7 @@ std::ostream& operator<<(std::ostream& out, const Store& store) {
 
 Store::Response Store::buy(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player) {
     const uint32_t price = amount * cargo->getBasePrice();
-    // std::shared_ptr<Cargo> buyCargo = std::make_shared<Cargo>(*cargo);
+    // std::shared_ptr<Cargo> buyCargo = std::make_shared<Cargo>(cargo);
 
     if (amount > player->getAvailableSpace()) {
         return Store::Response::lack_of_space;
@@ -32,18 +32,22 @@ Store::Response Store::buy(std::shared_ptr<Cargo> cargo, uint32_t amount, Player
     if (price > player->getMoney()) {
         return Store::Response::lack_of_money;
     }
+    //*cargo += amount;
+    // auto current = cargo->getAmount();
+    auto cargo1 = cargo;
     *cargo -= amount;
-    // *buyCargo -= cargo->getAmount();
-    player->purchaseCargo(cargo, amount, price);
+    *cargo1 -= cargo->getAmount();
+    // Tutaj niestety zeruje wartości i kupujemy 0 i zostaje w sklepie 0 :/
+    player->purchaseCargo(std::shared_ptr<Cargo>(cargo1), amount, price);
 
     return Store::Response::done;
 }
 
-Store::Response Store::sell(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player) {
+Store::Response Store::sell(Cargo* cargo, uint32_t amount, Player* player) {
     uint32_t price = amount * cargo->getBasePrice();
 
     player->sellCargo(cargo, amount, price);
-    loadToStore(cargo);
+    loadToStore(std::shared_ptr<Cargo>(cargo));
     return Store::Response::done;
 }
 

@@ -27,7 +27,7 @@ public:
     std::vector<std::shared_ptr<Cargo>> getVectorCargo() const;
 
     void load(std::shared_ptr<Cargo> cargo);
-    void unload(std::shared_ptr<Cargo> cargo, uint32_t amount);
+    void unload(Cargo* cargo, uint32_t amount);
     void printCargo() const;
 
     // override from ObserverTime
