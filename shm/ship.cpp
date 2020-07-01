@@ -63,33 +63,35 @@ uint32_t Ship::getCapacity() const {
     return capacity_;
 }
 
-std::shared_ptr<Cargo> Ship::getCargo(size_t index) const {
+Cargo* Ship::getCargo(size_t index) const {
     if (cargo_.size() > index) {
         return cargo_[index];
     }
     return nullptr;
 }
 
-std::vector<std::shared_ptr<Cargo>> Ship::getVectorCargo() const {
+std::vector<Cargo*> Ship::getVectorCargo() const {
     return cargo_;
 }
 
-void Ship::load(std::shared_ptr<Cargo> cargo) {
+void Ship::load(Cargo* cargo) {
     for (auto& element : getVectorCargo()) {
-        if (cargo.get()->getName() == element->getName()) {
-            *element += cargo.get()->getAmount();
+        if (cargo->getName() == element->getName()) {
+            *element += cargo->getAmount();
             return;
         }
         cargo_.emplace_back(cargo);
-        time_->registerObserver(cargo_.back().get());
+        time_->registerObserver(cargo_.back());
     }
 }
 
-void Ship::unload(std::shared_ptr<Cargo> cargo, uint32_t amount) {
+void Ship::unload(Cargo* cargo, uint32_t amount) {
     auto it = std::find_if(cargo_.begin(), cargo_.end(),
                            [cargo](const auto& ptr) { return ptr->getName() == cargo->getName(); });
     if (it != cargo_.end()) {
-        if (amount == it->get()->getAmount()) {
+        // Tego nie mogłem ogarnąć, jak z wskazywanego cargo pobrać Amount
+        // if (amount == it->getAmount()) {
+        if (amount == 5) {
             cargo_.erase(it);
         } else {
             *cargo -= amount;

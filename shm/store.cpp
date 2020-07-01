@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <random>
 
+#include "fruit.hpp"
+
 Store::Store() {}
 Store::~Store() {}
 
@@ -15,9 +17,9 @@ std::ostream& operator<<(std::ostream& out, const Store& store) {
     return out;
 }
 
-Store::Response Store::buy(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player) {
+Store::Response Store::buy(Cargo* cargo, uint32_t amount, Player* player) {
     const uint32_t price = amount * cargo->getBasePrice();
-    std::shared_ptr<Cargo> buyCargo = std::make_shared<Cargo>(*cargo);
+    // std::shared_ptr<Cargo> buyCargo = std::make_shared<Fruit>(*cargo);
 
     if (amount > player->getAvailableSpace()) {
         return Store::Response::lack_of_space;
@@ -29,21 +31,20 @@ Store::Response Store::buy(std::shared_ptr<Cargo> cargo, uint32_t amount, Player
         return Store::Response::lack_of_money;
     }
     *cargo -= amount;
-    *buyCargo -= cargo->getAmount();
-    player->purchaseCargo(buyCargo, amount, price);
+    // *buyCargo -= cargo->getAmount();
+    player->purchaseCargo(cargo, amount, price);
 
     return Store::Response::done;
 }
 
-Store::Response Store::sell(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player) {
+Store::Response Store::sell(Cargo* cargo, uint32_t amount, Player* player) {
     const uint32_t price = amount * cargo->getBasePrice();
-
     player->sellCargo(cargo, amount, price);
     loadToStore(cargo);
     return Store::Response::done;
 }
 
-std::shared_ptr<Cargo> Store::getCargo(uint32_t index) const {
+Cargo* Store::getCargo(uint32_t index) const {
     if (cargo_.size() > index) {
         return cargo_[index];
     }
@@ -63,7 +64,7 @@ void Store::generateCargo(Time* time) {
     std::vector<std::string> cargoProducts = {"Coffee",    "Tea",     "Cigarette", "Ice cream",
                                               "Chocolate", "Alcohol", "Fruits",    "Chips"};
     for_each(cargoProducts.begin(), cargoProducts.end(), [&](const auto& cargo) {
-        cargo_.emplace_back(std::make_shared<Cargo>(amountOfCargo(gen), cargo, priceOfCargo(gen), time));
+        cargo_.emplace_back(new Fruit(amountOfCargo(gen), cargo, priceOfCargo(gen), time, 20));
     });
 }
 
@@ -75,10 +76,10 @@ void Store::printCargo() const {
     });
 }
 
-void Store::loadToStore(std::shared_ptr<Cargo> cargo) {
+void Store::loadToStore(Cargo* cargo) {
     for (auto& element : cargo_) {
-        if (cargo.get()->getName() == element->getName()) {
-            *element += cargo.get()->getAmount();
+        if (cargo->getName() == element->getName()) {
+            *element += cargo->getAmount();
             return;
         }
     }

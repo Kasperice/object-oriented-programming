@@ -39,20 +39,20 @@ int main() {
 
     Player pawellos(ptr, 300, 70);
 
-    Cargo* bananas = new Fruit{10, "Bananas", 100, &gameTime, 10};
-    Cargo* oranges = new Fruit{50, "Oranges", 10, &gameTime, 10};
-    Cargo* apples = new Fruit{200, "Apples", 50, &gameTime, 10};
+    // Cargo* bananas = new Fruit{10, "Bananas", 100, &gameTime, 10};
+    // Cargo* oranges = new Fruit{50, "Oranges", 10, &gameTime, 10};
+    // Cargo* apples = new Fruit{200, "Apples", 50, &gameTime, 10};
     // Cargo bananas(10, "Bananas", 100, &gameTime);
     // Cargo oranges(50, "Oranges", 10, &gameTime);
     // Cargo apples(200, "Apples", 50, &gameTime);
 
     // Cargo Chocolate(5, "milka", 3, &gameTime);
-    Cargo* Chocolate = new Item{5, "milka", 3, &gameTime, Rarity::legendary};
+    // Cargo* Chocolate = new Item{5, "milka", 3, &gameTime, Rarity::legendary};
     // Cargo IceCream(6, "scholler", 8, &gameTime);
-    Cargo* IceCream = new Item{200, "scholler", 50, &gameTime, Rarity::epic};
+    // Cargo* IceCream = new Item{200, "scholler", 50, &gameTime, Rarity::epic};
 
-    std::shared_ptr<Cargo> ptrCargo1 = std::make_shared<Cargo>(Chocolate);
-    std::shared_ptr<Cargo> ptrCargo2 = std::make_shared<Cargo>(IceCream);
+    Cargo* ptrCargo1 = new Item(5, "milka", 3, &gameTime, Rarity::legendary);
+    Cargo* ptrCargo2 = new Item(200, "scholler", 50, &gameTime, Rarity::epic);
     /*Cargo* Banana = new Fruit{6, "Banana", 5, 10};
     Item Chocolate(5, "Milka", 5, Rarity::epic);
     // Item IceCream(6, "scholler", 6, Rarity::common);
@@ -94,8 +94,10 @@ int main() {
     std::cout << "Money of player: " << pawellos.getMoney() << '\n';
     std::cout << "Available place on ship: " << pawellos.getAvailableSpace() << '\n';
     biedronka.printCargo();
-    biedronka.sell(pawellos.getCargo(1), 3, &pawellos);
-    biedronka.sell(pawellos.getCargo(2), 2, &pawellos);
+    // Nie działa sell - Naruszenie Ochrony Pamięci :/
+    // Problem występuje dokładnie w store.cpp  linia 41
+    // biedronka.sell(pawellos.getCargo(1), 3, &pawellos);
+    // biedronka.sell(pawellos.getCargo(2), 2, &pawellos);
     std::cout << "---------After sell------ \n\n";
     pawellos.getShip()->printCargo();
     std::cout << "Money of player: " << pawellos.getMoney() << '\n';
@@ -106,9 +108,9 @@ int main() {
 
     Ship ship01(100, 20, 21, "Ship #1", 1, &gameTime);
 
-    std::shared_ptr<Cargo> bananasPtr = std::make_shared<Cargo>(bananas);
-    std::shared_ptr<Cargo> orangesPtr = std::make_shared<Cargo>(oranges);
-    std::shared_ptr<Cargo> applesPtr = std::make_shared<Cargo>(apples);
+    Cargo* bananasPtr = new Fruit(10, "Bananas", 100, &gameTime, 10);
+    Cargo* orangesPtr = new Fruit(50, "Oranges", 10, &gameTime, 10);
+    Cargo* applesPtr = new Fruit(200, "Apples", 50, &gameTime, 10);
 
     ship01.load(bananasPtr);
     ship01.load(bananasPtr);

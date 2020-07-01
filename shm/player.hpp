@@ -14,14 +14,11 @@ public:
     uint32_t getAvailableSpace() const;
     uint32_t getSpeed() const;
 
-    std::shared_ptr<Cargo> getCargo(uint32_t index) const;
+    Cargo* getCargo(uint32_t index) const;
     // void purchaseCargo(const Cargo* cargo, uint32_t amount, uint32_t price);
-    void purchaseCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price);
-    void sellCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price);
+    void purchaseCargo(Cargo* cargo, uint32_t amount, uint32_t price);
+    void sellCargo(Cargo* cargo, uint32_t amount, uint32_t price);
     void printCargo() const;
-
-    // void purchaseCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price);
-    // void printCargo() const;
 
 private:
     std::shared_ptr<Ship> ship_;
