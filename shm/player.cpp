@@ -18,7 +18,7 @@ uint32_t Player::getMoney() const {
 uint32_t Player::countAvailableSpace() const {
     uint32_t sumOfAmounts =
         std::accumulate(ship_->getVectorCargo().begin(), ship_->getVectorCargo().end(), 0,
-                        [](size_t amounts, const auto& cargo) { return amounts += cargo->getAmount(); });
+                        [](size_t amounts, const auto& cargo) { return amounts += cargo.get()->getAmount(); });
 
     return ship_->getCapacity() - sumOfAmounts;
 }
@@ -27,25 +27,24 @@ uint32_t Player::getSpeed() const {
     return ship_->getSpeed();
 }
 
-Cargo* Player::getCargo(uint32_t index) const {
+std::shared_ptr<Cargo> Player::getCargo(uint32_t index) const {
     if (ship_) {
         return ship_->getCargo(index);
     }
     return nullptr;
 }
 
-void Player::purchaseCargo(Cargo* cargo, uint32_t amount, uint32_t price) {
+void Player::purchaseCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price) {
     availableSpace_ -= amount;
     money_ -= price;
     ship_->load(cargo);
 }
 
-void Player::sellCargo(Cargo* cargo, uint32_t amount, uint32_t price) {
+void Player::sellCargo(std::shared_ptr<Cargo> cargo, uint32_t amount, uint32_t price) {
     availableSpace_ += amount;
     money_ += price;
     ship_->unload(cargo, amount);
 }
-
 void Player::printCargo() const {
     ship_->printCargo();
 }

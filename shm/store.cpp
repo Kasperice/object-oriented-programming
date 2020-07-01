@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <random>
 
+#include "alcohol.hpp"
 #include "fruit.hpp"
+#include "item.hpp"
 
 Store::Store() {}
 Store::~Store() {}
@@ -17,9 +19,9 @@ std::ostream& operator<<(std::ostream& out, const Store& store) {
     return out;
 }
 
-Store::Response Store::buy(Cargo* cargo, uint32_t amount, Player* player) {
+Store::Response Store::buy(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player) {
     const uint32_t price = amount * cargo->getBasePrice();
-    // std::shared_ptr<Cargo> buyCargo = std::make_shared<Fruit>(*cargo);
+    // std::shared_ptr<Cargo> buyCargo = std::make_shared<Cargo>(*cargo);
 
     if (amount > player->getAvailableSpace()) {
         return Store::Response::lack_of_space;
@@ -37,14 +39,15 @@ Store::Response Store::buy(Cargo* cargo, uint32_t amount, Player* player) {
     return Store::Response::done;
 }
 
-Store::Response Store::sell(Cargo* cargo, uint32_t amount, Player* player) {
-    const uint32_t price = amount * cargo->getBasePrice();
+Store::Response Store::sell(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player) {
+    uint32_t price = amount * cargo->getBasePrice();
+
     player->sellCargo(cargo, amount, price);
     loadToStore(cargo);
     return Store::Response::done;
 }
 
-Cargo* Store::getCargo(uint32_t index) const {
+std::shared_ptr<Cargo> Store::getCargo(uint32_t index) const {
     if (cargo_.size() > index) {
         return cargo_[index];
     }
@@ -56,6 +59,7 @@ void Store::generateCargo(Time* time) {
     const int maxAmountOfCargo = 300;
     const int minPriceOfCargo = 5;
     const int maxPriceOfCargo = 15;
+    int i = 0;
     std::uniform_int_distribution<> amountOfCargo(minAmountOfCargo, maxAmountOfCargo);
     std::uniform_int_distribution<> priceOfCargo(minPriceOfCargo, maxPriceOfCargo);
     std::random_device rd;
@@ -63,8 +67,16 @@ void Store::generateCargo(Time* time) {
 
     std::vector<std::string> cargoProducts = {"Coffee",    "Tea",     "Cigarette", "Ice cream",
                                               "Chocolate", "Alcohol", "Fruits",    "Chips"};
-    for_each(cargoProducts.begin(), cargoProducts.end(), [&](const auto& cargo) {
-        cargo_.emplace_back(new Fruit(amountOfCargo(gen), cargo, priceOfCargo(gen), time, 20));
+    for_each(cargoProducts.begin(), cargoProducts.end(), [&](const auto& cargo) mutable {
+        if (i % 3 == 0) {
+            cargo_.emplace_back(std::make_shared<Fruit>(amountOfCargo(gen), cargo, priceOfCargo(gen), time, 10));
+        } else if (i % 3 == 1) {
+            cargo_.emplace_back(
+                std::make_shared<Item>(amountOfCargo(gen), cargo, priceOfCargo(gen), time, Rarity::rare));
+        } else {
+            cargo_.emplace_back(std::make_shared<Alcohol>(amountOfCargo(gen), cargo, priceOfCargo(gen), time, 95));
+        }
+        i++;
     });
 }
 
@@ -76,10 +88,10 @@ void Store::printCargo() const {
     });
 }
 
-void Store::loadToStore(Cargo* cargo) {
+void Store::loadToStore(std::shared_ptr<Cargo> cargo) {
     for (auto& element : cargo_) {
-        if (cargo->getName() == element->getName()) {
-            *element += cargo->getAmount();
+        if (cargo.get()->getName() == element->getName()) {
+            *element += cargo.get()->getAmount();
             return;
         }
     }

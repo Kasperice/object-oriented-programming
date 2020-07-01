@@ -23,11 +23,11 @@ public:
     uint32_t getCrew() const;
     uint32_t getMaxCrew() const;
     uint32_t getCapacity() const;
-    Cargo* getCargo(size_t index) const;
-    std::vector<Cargo*> getVectorCargo() const;
+    std::shared_ptr<Cargo> getCargo(size_t index) const;
+    std::vector<std::shared_ptr<Cargo>> getVectorCargo() const;
 
-    void load(Cargo* cargo);
-    void unload(Cargo* cargo, uint32_t amount);
+    void load(std::shared_ptr<Cargo> cargo);
+    void unload(std::shared_ptr<Cargo> cargo, uint32_t amount);
     void printCargo() const;
 
     // override from ObserverTime
@@ -40,6 +40,6 @@ private:
     uint32_t speed_;
     std::string name_;
     uint32_t id_;
-    std::vector<Cargo*> cargo_;
+    std::vector<std::shared_ptr<Cargo>> cargo_;
     Time* time_;
 };

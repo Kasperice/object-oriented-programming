@@ -10,15 +10,15 @@ public:
 
     enum class Response { done, lack_of_money, lack_of_cargo, lack_of_space };
 
-    Response buy(Cargo* cargo, uint32_t amount, Player* player);
-    Response sell(Cargo* cargo, uint32_t amount, Player* player);
+    Response buy(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player);
+    Response sell(std::shared_ptr<Cargo> cargo, uint32_t amount, Player* player);
 
-    Cargo* getCargo(uint32_t index) const;
+    std::shared_ptr<Cargo> getCargo(uint32_t index) const;
     void generateCargo(Time* time);
     void printCargo() const;
-    void loadToStore(Cargo* cargo);
+    void loadToStore(std::shared_ptr<Cargo> cargo);
 
 private:
-    std::vector<Cargo*> cargo_;
+    std::vector<std::shared_ptr<Cargo>> cargo_;
     friend std::ostream& operator<<(std::ostream& output, const Store& store);
 };

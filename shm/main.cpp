@@ -51,8 +51,8 @@ int main() {
     // Cargo IceCream(6, "scholler", 8, &gameTime);
     // Cargo* IceCream = new Item{200, "scholler", 50, &gameTime, Rarity::epic};
 
-    Cargo* ptrCargo1 = new Item(5, "milka", 3, &gameTime, Rarity::legendary);
-    Cargo* ptrCargo2 = new Item(200, "scholler", 50, &gameTime, Rarity::epic);
+    std::shared_ptr<Cargo> ptrCargo1 = std::make_shared<Item>(5, "milka", 3, &gameTime, Rarity::legendary);
+    std::shared_ptr<Cargo> ptrCargo2 = std::make_shared<Item>(200, "scholler", 50, &gameTime, Rarity::epic);
     /*Cargo* Banana = new Fruit{6, "Banana", 5, 10};
     Item Chocolate(5, "Milka", 5, Rarity::epic);
     // Item IceCream(6, "scholler", 6, Rarity::common);
@@ -94,9 +94,7 @@ int main() {
     std::cout << "Money of player: " << pawellos.getMoney() << '\n';
     std::cout << "Available place on ship: " << pawellos.getAvailableSpace() << '\n';
     biedronka.printCargo();
-    // Nie działa sell - Naruszenie Ochrony Pamięci :/
-    // Problem występuje dokładnie w store.cpp  linia 41
-    // biedronka.sell(pawellos.getCargo(1), 3, &pawellos);
+    biedronka.sell(pawellos.getCargo(1), 3, &pawellos);
     // biedronka.sell(pawellos.getCargo(2), 2, &pawellos);
     std::cout << "---------After sell------ \n\n";
     pawellos.getShip()->printCargo();
@@ -108,13 +106,16 @@ int main() {
 
     Ship ship01(100, 20, 21, "Ship #1", 1, &gameTime);
 
-    Cargo* bananasPtr = new Fruit(10, "Bananas", 100, &gameTime, 10);
-    Cargo* orangesPtr = new Fruit(50, "Oranges", 10, &gameTime, 10);
-    Cargo* applesPtr = new Fruit(200, "Apples", 50, &gameTime, 10);
+    std::shared_ptr<Cargo> bananasPtr = std::make_shared<Fruit>(10, "Bananas", 100, &gameTime, 10);
+    std::shared_ptr<Cargo> orangesPtr = std::make_shared<Fruit>(50, "Oranges", 10, &gameTime, 10);
+    std::shared_ptr<Cargo> applesPtr = std::make_shared<Fruit>(200, "Apples", 50, &gameTime, 10);
+
+    std::shared_ptr<Cargo> alcoPtr = std::make_shared<Alcohol>(200, "Vodka 40%", 50, &gameTime, 40);
 
     ship01.load(bananasPtr);
-    ship01.load(bananasPtr);
-    ship01.load(bananasPtr);
+    ship01.load(applesPtr);
+    ship01.load(orangesPtr);
+    ship01.load(alcoPtr);
 
     ++gameTime;
     {
